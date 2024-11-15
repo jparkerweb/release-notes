@@ -41,7 +41,6 @@ const discordButton = document.getElementById('discordButton');
 const githubButton = document.getElementById('githubButton');
 const kofiButton = document.getElementById('kofiButton');
 const resetButton = document.getElementById('resetButton');
-const selectButton = document.getElementById('selectButton');
 
 // Populate project select
 projects.forEach(project => {
@@ -142,41 +141,47 @@ githubButton.addEventListener('click', () => generateReleaseNotes('github'));
 kofiButton.addEventListener('click', () => generateReleaseNotes('kofi'));
 
 // Copy button functionality
-async function copyToClipboard(text) {
+function copyToClipboard(text) {
+    // Create a temporary textarea element
+    const textArea = document.createElement("textarea");
+    textArea.value = text;
+    
+    // Make it invisible but ensure it's in the DOM
+    textArea.style.position = "fixed";
+    textArea.style.top = "0";
+    textArea.style.left = "0";
+    textArea.style.width = "2em";
+    textArea.style.height = "2em";
+    textArea.style.padding = "0";
+    textArea.style.border = "none";
+    textArea.style.outline = "none";
+    textArea.style.boxShadow = "none";
+    textArea.style.background = "transparent";
+    
+    document.body.appendChild(textArea);
+    
     try {
-        // Try the Clipboard API first
-        if (navigator.clipboard && window.isSecureContext) {
-            await navigator.clipboard.writeText(text);
-            return true;
-        }
-        
-        // Fallback to execCommand
-        const textArea = document.createElement("textarea");
-        textArea.value = text;
-        textArea.style.position = "fixed";
-        textArea.style.left = "-999999px";
-        textArea.style.top = "-999999px";
-        document.body.appendChild(textArea);
+        // Select the text
         textArea.focus();
         textArea.select();
         
-        try {
-            const successful = document.execCommand('copy');
-            textArea.remove();
-            return successful;
-        } catch (err) {
-            console.error('execCommand Error:', err);
-            textArea.remove();
-            return false;
-        }
+        // Try to copy
+        const successful = document.execCommand('copy');
+        
+        // Clean up
+        document.body.removeChild(textArea);
+        
+        return successful;
     } catch (err) {
-        console.error('Clipboard Error:', err);
+        // Clean up
+        document.body.removeChild(textArea);
+        console.error('execCommand Error:', err);
         return false;
     }
 }
 
-copyButton.addEventListener('click', async () => {
-    const success = await copyToClipboard(outputContent.textContent);
+copyButton.addEventListener('click', () => {
+    const success = copyToClipboard(outputContent.textContent);
     if (success) {
         copyButton.textContent = 'Copied!';
         setTimeout(() => {
@@ -186,21 +191,6 @@ copyButton.addEventListener('click', async () => {
         console.error('Failed to copy');
         alert('Failed to copy to clipboard');
     }
-});
-
-// Select button functionality
-selectButton.addEventListener('click', () => {
-    const range = document.createRange();
-    const selection = window.getSelection();
-    
-    range.selectNodeContents(outputContent);
-    selection.removeAllRanges();
-    selection.addRange(range);
-    
-    selectButton.textContent = 'Notes Selected!';
-    setTimeout(() => {
-        selectButton.textContent = 'Select Notes';
-    }, 2000);
 });
 
 // Reset button functionality
