@@ -41,6 +41,7 @@ const discordButton = document.getElementById('discordButton');
 const githubButton = document.getElementById('githubButton');
 const kofiButton = document.getElementById('kofiButton');
 const resetButton = document.getElementById('resetButton');
+const selectButton = document.getElementById('selectButton');
 
 // Populate project select
 projects.forEach(project => {
@@ -185,6 +186,21 @@ copyButton.addEventListener('click', async () => {
         console.error('Failed to copy');
         alert('Failed to copy to clipboard');
     }
+});
+
+// Select button functionality
+selectButton.addEventListener('click', () => {
+    const range = document.createRange();
+    const selection = window.getSelection();
+    
+    range.selectNodeContents(outputContent);
+    selection.removeAllRanges();
+    selection.addRange(range);
+    
+    selectButton.textContent = 'Notes Selected!';
+    setTimeout(() => {
+        selectButton.textContent = 'Select Notes';
+    }, 2000);
 });
 
 // Reset button functionality
