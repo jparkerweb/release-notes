@@ -2,7 +2,7 @@
 
 All notable changes to the Release Notes Generator will be documented in this file.
 
-## [1.0.1] - 2024-11-15
+## [1.1.0] - 2024-11-15
 
 ### Fixed 🐛
 - Simplified copy to clipboard logic
