@@ -141,15 +141,48 @@ githubButton.addEventListener('click', () => generateReleaseNotes('github'));
 kofiButton.addEventListener('click', () => generateReleaseNotes('kofi'));
 
 // Copy button functionality
-copyButton.addEventListener('click', async () => {
+async function copyToClipboard(text) {
     try {
-        await navigator.clipboard.writeText(outputContent.textContent);
+        // Try the Clipboard API first
+        if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(text);
+            return true;
+        }
+        
+        // Fallback to execCommand
+        const textArea = document.createElement("textarea");
+        textArea.value = text;
+        textArea.style.position = "fixed";
+        textArea.style.left = "-999999px";
+        textArea.style.top = "-999999px";
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        
+        try {
+            const successful = document.execCommand('copy');
+            textArea.remove();
+            return successful;
+        } catch (err) {
+            console.error('execCommand Error:', err);
+            textArea.remove();
+            return false;
+        }
+    } catch (err) {
+        console.error('Clipboard Error:', err);
+        return false;
+    }
+}
+
+copyButton.addEventListener('click', async () => {
+    const success = await copyToClipboard(outputContent.textContent);
+    if (success) {
         copyButton.textContent = 'Copied!';
         setTimeout(() => {
             copyButton.textContent = 'Copy to Clipboard';
         }, 2000);
-    } catch (err) {
-        console.error('Failed to copy:', err);
+    } else {
+        console.error('Failed to copy');
         alert('Failed to copy to clipboard');
     }
 });
