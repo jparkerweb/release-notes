@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Release Notes Generator</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="background.css">
+    <link rel="icon" type="image/png" href="favicon.png">
+</head>
+<body>
+    <div class="background">
+        <div class="grid"></div>
+        <div class="blocks">
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+        </div>
+        <div class="lines">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+        </div>
+        <div class="pulse"></div>
+    </div>
+    <div class="container">
+        <h1>Release Notes Generator</h1>
+        <form id="releaseForm">
+            <div class="form-group">
+                <label for="project">Project</label>
+                <select id="project" name="project" required>
+                    <option value="">Select a project...</option>
+                </select>
+                <div class="error-message" id="projectError"></div>
+            </div>
+            <div class="form-group">
+                <label for="versionNumber">Version Number</label>
+                <input type="text" 
+                       id="versionNumber" 
+                       name="versionNumber" 
+                       placeholder="1.0.0" 
+                       pattern="^\d+\.\d+\.\d+$"
+                       title="Please use semantic versioning (e.g., 1.0.0)"
+                       required>
+                <div class="error-message" id="versionError"></div>
+            </div>
+            <div class="form-group">
+                <label for="releaseNotes">Release Notes</label>
+                <textarea id="releaseNotes" 
+                         name="releaseNotes" 
+                         rows="10" 
+                         required></textarea>
+                <div class="error-message" id="notesError"></div>
+            </div>
+            <div class="form-group">
+                <label for="imgURL">Image URL (optional)</label>
+                <input type="url" 
+                       id="imgURL" 
+                       name="imgURL" 
+                       placeholder="https://..."
+                       pattern="^https:\/\/.*"
+                       title="URL must start with https://">
+                <div class="error-message" id="imgError"></div>
+            </div>
+            <div class="button-group">
+                <button type="button" id="discordButton">Generate for Discord</button>
+                <button type="button" id="githubButton">Generate for GitHub</button>
+                <button type="button" id="kofiButton">Generate for Ko-Fi</button>
+            </div>
+        </form>
+        <div id="output" class="hidden">
+            <h2>Generated Release Notes</h2>
+            <div id="outputContent"></div>
+            <div class="output-actions">
+                <button id="copyButton">Copy to Clipboard</button>
+                <button id="resetButton" class="reset">Reset</button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
