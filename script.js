@@ -54,6 +54,7 @@ projects.forEach(project => {
 function generateDiscordReleaseNotes(project, version, notes, imgUrl) {
     let template = `# ${project.displayName} [v${version}](<https://github.com/jparkerweb/${project.shortName}/releases/tag/${version}>)\n\n`;
     template += `## What's New 🎉\n${notes}\n\n`;
+    template += `#### Grab the latest update directly from the Obsidian app! If you have any suggestions or encounter any issues, don't hesitate to reach out. 😁\n\n`;
     template += `⇢ [github](<https://github.com/jparkerweb/${project.shortName}>)\n`;
     
     if (project.npmPackageName) {
