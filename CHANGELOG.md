@@ -2,7 +2,17 @@
 
 All notable changes to the Release Notes Generator will be documented in this file.
 
-## [1.0.0] - 2024-01-10
+## [1.0.1] - 2024-11-15
+
+### Fixed 🐛
+- Simplified copy to clipboard logic
+  - was having issues when the page was being used from an iframe
+
+### Updated 📦
+- Background has been updated with a more vibrant animation
+- Form layout simplified
+
+## [1.0.0] - 2024-11-14
 
 ### Added ✨
 - Initial release of the Release Notes Generator
