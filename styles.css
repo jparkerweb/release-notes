@@ -57,6 +57,25 @@ h1 {
     position: relative;
 }
 
+/* Add new form row styles */
+.form-row {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.form-row .form-group {
+    margin-bottom: 0;
+}
+
+.flex-grow {
+    flex: 2;
+}
+
+.flex-shrink {
+    flex: 1;
+}
+
 label {
     display: block;
     margin-bottom: 0.5rem;
