@@ -92,7 +92,9 @@ function generateDiscordReleaseNotes(project, version, notes, imgUrl) {
 
 // Generate GitHub release notes template
 function generateGitHubReleaseNotes(version, notes, imgUrl) {
-    let template = `## What's New 🎉\n${notes}\n\n`;
+    let template = `## What's New 🎉`;
+    template += `\n\n### v${version}`;
+    template += `\n${notes}\n\n`;
     
     if (imgUrl.trim()) {
         template += `![v${version}](${imgUrl})\n\n`;
