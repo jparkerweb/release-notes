@@ -2,6 +2,11 @@
 
 All notable changes to the Release Notes Generator will be documented in this file.
 
+## [1.1.1] - 2024-11-15
+
+### Added ✨
+- Added support for X post release notes
+
 ## [1.1.0] - 2024-11-15
 
 ### Fixed 🐛
