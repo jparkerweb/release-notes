@@ -97,23 +97,24 @@ function generateGitHubReleaseNotes(version, notes, imgUrl) {
 
 // Generate Ko-Fi release notes template
 function generateKoFiReleaseNotes(project, notes) {
-    let template = `${project.displayName} Release\n${notes}\n\n`;
-    template += `⇢ https://github.com/jparkerweb/${project.shortName}\n`;
+    const formattedNotes = formatNotesWithEmojis(notes);
+    let template = `${project.displayName} Release\n\n${formattedNotes}\n\n🐙 https://github.com/jparkerweb/${project.shortName}`;
+    
+    if (project.obsidianPluginName) {
+        template += `\n💎 https://obsidian.md/plugins?search=${project.obsidianPluginName}`;
+    }
     
     if (project.npmPackageName) {
-        template += `⇢ https://www.npmjs.com/package/${project.npmPackageName}\n`;
+        template += `\n🥡 https://www.npmjs.com/package/${project.npmPackageName}`;
     }
-    
-    if (project.demo) {
-        template += `⇢ ${project.demo}\n`;
-    }
-    
+
     return template;
 }
 
 // Generate X post release notes template
 function generateXReleaseNotes(project, notes) {
-    let template = `${project.displayName} Release\n${notes}\n\n🐙 https://github.com/jparkerweb/${project.shortName}`;
+    const formattedNotes = formatNotesWithEmojis(notes);
+    let template = `${project.displayName} Release\n\n${formattedNotes}\n\n🐙 https://github.com/jparkerweb/${project.shortName}`;
     
     if (project.obsidianPluginName) {
         template += `\n💎 https://obsidian.md/plugins?search=${project.obsidianPluginName}`;
@@ -125,6 +126,30 @@ function generateXReleaseNotes(project, notes) {
     
     template += `\n\n${project.hashtags}`;
     return template;
+}
+
+// Helper function to format notes with section emojis
+function formatNotesWithEmojis(notes) {
+    const lines = notes.split('\n');
+    let currentSection = '';
+    let currentEmoji = '';
+    const formattedLines = [];
+
+    for (const line of lines) {
+        const trimmedLine = line.trim();
+        if (!trimmedLine) continue;
+
+        if (trimmedLine.startsWith('### ')) {
+            const [title, emoji] = trimmedLine.substring(4).split(' ');
+            currentSection = title.toLowerCase();
+            currentEmoji = emoji;
+        } else if (trimmedLine.startsWith('- ')) {
+            const bulletText = trimmedLine.substring(2);
+            formattedLines.push(`⇢ ${currentEmoji} ${currentSection} ${bulletText}`);
+        }
+    }
+
+    return formattedLines.join('\n');
 }
 
 // Generate release notes based on template type
