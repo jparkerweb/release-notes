@@ -3,28 +3,35 @@ const projects = [
     {
         displayName: '🚩 Pixel Banner',
         shortName: 'pixel-banner',
-        obsidianPluginName: 'Pixel Banner'
+        obsidianPluginName: 'Pixel Banner',
+        hashtags: '#Obsidian #ObsidianMD #Plugins #Banners',
     },
     {
         displayName: '🦶 Rich Foot',
         shortName: 'rich-foot',
-        obsidianPluginName: 'Rich Foot'
+        obsidianPluginName: 'Rich Foot',
+        hashtags: '#Obsidian #ObsidianMD #Plugins #Footnotes'
     },
     {
         displayName: '🍱 Semantic Chunking',
         shortName: 'semantic-chunking',
         npmPackageName: 'semantic-chunking',
-        demo: 'https://chunking.dyndns.org'
+        demo: 'https://chunking.dyndns.org',
+        hashtags: '#LLM #RAG #AI #AITools #Chunking',
+        npmPackageName: 'semantic-chunking'
     },
     {
         displayName: '🕵️ Chunk Match',
         shortName: 'chunk-match',
         npmPackageName: 'chunk-match',
-        demo: 'https://chunk-match.dyndns.org'
+        demo: 'https://chunk-match.dyndns.org',
+        hashtags: '#LLM #RAG #AI #AITools #Chunking',
+        npmPackageName: 'chunk-match'
     },
     {
         displayName: '🌐 Web-Augmented Generation',
-        shortName: 'web-augmented-generation'
+        shortName: 'web-augmented-generation',
+        hashtags: '#LLM #AITools #NodeJS #SearXNG #WebScraping'
     }
 ];
 
@@ -40,6 +47,7 @@ const copyButton = document.getElementById('copyButton');
 const discordButton = document.getElementById('discordButton');
 const githubButton = document.getElementById('githubButton');
 const kofiButton = document.getElementById('kofiButton');
+const xButton = document.getElementById('xButton');
 const resetButton = document.getElementById('resetButton');
 
 // Populate project select
@@ -103,6 +111,22 @@ function generateKoFiReleaseNotes(project, notes) {
     return template;
 }
 
+// Generate X post release notes template
+function generateXReleaseNotes(project, notes) {
+    let template = `${project.displayName} Release\n${notes}\n\n🐙 https://github.com/jparkerweb/${project.shortName}`;
+    
+    if (project.obsidianPluginName) {
+        template += `\n💎 https://obsidian.md/plugins?search=${project.obsidianPluginName}`;
+    }
+    
+    if (project.npmPackageName) {
+        template += `\n🥡 https://www.npmjs.com/package/${project.npmPackageName}`;
+    }
+    
+    template += `\n\n${project.hashtags}`;
+    return template;
+}
+
 // Generate release notes based on template type
 function generateReleaseNotes(templateType) {
     if (!form.checkValidity()) {
@@ -114,21 +138,24 @@ function generateReleaseNotes(templateType) {
     const version = versionInput.value;
     const notes = releaseNotesInput.value;
     const imgUrl = imgURLInput.value;
-    
-    let releaseNotes;
+
+    let content = '';
     switch (templateType) {
         case 'discord':
-            releaseNotes = generateDiscordReleaseNotes(selectedProject, version, notes, imgUrl);
+            content = generateDiscordReleaseNotes(selectedProject, version, notes, imgUrl);
             break;
         case 'github':
-            releaseNotes = generateGitHubReleaseNotes(version, notes, imgUrl);
+            content = generateGitHubReleaseNotes(version, notes, imgUrl);
             break;
         case 'kofi':
-            releaseNotes = generateKoFiReleaseNotes(selectedProject, notes);
+            content = generateKoFiReleaseNotes(selectedProject, notes);
+            break;
+        case 'x':
+            content = generateXReleaseNotes(selectedProject, notes);
             break;
     }
     
-    outputContent.textContent = releaseNotes;
+    outputContent.textContent = content;
     output.classList.remove('hidden');
     
     // Scroll to output section
@@ -139,6 +166,7 @@ function generateReleaseNotes(templateType) {
 discordButton.addEventListener('click', () => generateReleaseNotes('discord'));
 githubButton.addEventListener('click', () => generateReleaseNotes('github'));
 kofiButton.addEventListener('click', () => generateReleaseNotes('kofi'));
+xButton.addEventListener('click', () => generateReleaseNotes('x'));
 
 // Copy button functionality
 function copyToClipboard(text) {
