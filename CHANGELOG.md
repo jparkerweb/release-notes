@@ -5,6 +5,7 @@ All notable changes to the Release Notes Generator will be documented in this fi
 ## [1.1.1] - 2024-11-15
 
 ### Added ✨
+- Added support for Obsidian release notes (inluding CSS snippet)
 - Added support for X post release notes
 
 ## [1.1.0] - 2024-11-15

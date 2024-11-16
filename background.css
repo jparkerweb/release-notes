@@ -44,7 +44,7 @@
 .block:nth-child(1) {
     --speed: 18s;
     --delay: -15s;
-    --top-pos: 15%;
+    --top-pos: 5%;
     width: 100px;
     height: 100px;
     top: var(--top-pos);
@@ -56,11 +56,11 @@
 .block:nth-child(2) {
     --speed: 25s;
     --delay: -5s;
-    --top-pos: 65%;
+    --top-pos: 85%;
     width: 150px;
     height: 150px;
     top: var(--top-pos);
-    left: -20%;
+    left: -45%;
     animation: blockFloat2 var(--speed) linear infinite;
     animation-delay: var(--delay);
 }
@@ -72,7 +72,7 @@
     width: 80px;
     height: 80px;
     top: var(--top-pos);
-    left: -15%;
+    left: -80%;
     animation: blockFloat3 var(--speed) linear infinite;
     animation-delay: var(--delay);
 }
@@ -80,7 +80,7 @@
 .block:nth-child(4) {
     --speed: 30s;
     --delay: -20s;
-    --top-pos: 80%;
+    --top-pos: 65%;
     width: 120px;
     height: 120px;
     top: var(--top-pos);
@@ -92,11 +92,11 @@
 .block:nth-child(5) {
     --speed: 28s;
     --delay: -12s;
-    --top-pos: 25%;
+    --top-pos: 15%;
     width: 90px;
     height: 90px;
     top: var(--top-pos);
-    left: -5%;
+    left: -60%;
     animation: blockFloat2 var(--speed) linear infinite;
     animation-delay: var(--delay);
 }
@@ -108,10 +108,119 @@
     width: 70px;
     height: 70px;
     top: var(--top-pos);
-    left: -30%;
+    left: -95%;
     animation: blockFloat3 var(--speed) linear infinite;
     animation-delay: var(--delay);
 }
+
+.block:nth-child(7) {
+    --speed: 24s;
+    --delay: -10s;
+    --top-pos: 75%;
+    width: 110px;
+    height: 110px;
+    top: var(--top-pos);
+    left: -30%;
+    animation: blockFloat1 var(--speed) linear infinite;
+    animation-delay: var(--delay);
+}
+
+.block:nth-child(8) {
+    --speed: 26s;
+    --delay: -14s;
+    --top-pos: 25%;
+    width: 95px;
+    height: 95px;
+    top: var(--top-pos);
+    left: -75%;
+    animation: blockFloat2 var(--speed) linear infinite;
+    animation-delay: var(--delay);
+}
+
+.block:nth-child(9) {
+    --speed: 21s;
+    --delay: -7s;
+    --top-pos: 55%;
+    width: 130px;
+    height: 130px;
+    top: var(--top-pos);
+    left: -40%;
+    animation: blockFloat3 var(--speed) linear infinite;
+    animation-delay: var(--delay);
+}
+
+.block:nth-child(10) {
+    --speed: 29s;
+    --delay: -16s;
+    --top-pos: 95%;
+    width: 75px;
+    height: 75px;
+    top: var(--top-pos);
+    left: -85%;
+    animation: blockFloat1 var(--speed) linear infinite;
+    animation-delay: var(--delay);
+}
+
+.block:nth-child(11) {
+    --speed: 23s;
+    --delay: -9s;
+    --top-pos: 40%;
+    width: 140px;
+    height: 140px;
+    top: var(--top-pos);
+    left: -55%;
+    animation: blockFloat2 var(--speed) linear infinite;
+    animation-delay: var(--delay);
+}
+
+.block:nth-child(12) {
+    --speed: 27s;
+    --delay: -13s;
+    --top-pos: 70%;
+    width: 85px;
+    height: 85px;
+    top: var(--top-pos);
+    left: -70%;
+    animation: blockFloat3 var(--speed) linear infinite;
+    animation-delay: var(--delay);
+}
+
+.block:nth-child(n+13) {
+    position: absolute;
+    width: calc(60px + (var(--n) * 5px));
+    height: calc(60px + (var(--n) * 5px));
+    top: calc((var(--n) * 8%) - 10%);
+    left: calc((var(--n) * -15%) - 10%);
+    --speed: calc(20s + (var(--n) * 2s));
+    --delay: calc((var(--n) * -8s));
+    animation: blockFloat1 var(--speed) linear infinite;
+    animation-delay: var(--delay);
+}
+
+.block:nth-child(13) { --n: 1; left: -90%; }
+.block:nth-child(14) { --n: 2; left: -50%; }
+.block:nth-child(15) { --n: 3; left: -70%; }
+.block:nth-child(16) { --n: 4; left: -30%; }
+.block:nth-child(17) { --n: 5; left: -85%; }
+.block:nth-child(18) { --n: 6; left: -40%; animation-name: blockFloat2; }
+.block:nth-child(19) { --n: 7; left: -95%; animation-name: blockFloat3; }
+.block:nth-child(20) { --n: 8; left: -25%; animation-name: blockFloat1; }
+.block:nth-child(21) { --n: 9; left: -75%; animation-name: blockFloat2; }
+.block:nth-child(22) { --n: 10; left: -45%; animation-name: blockFloat3; }
+.block:nth-child(23) { --n: 11; left: -65%; animation-name: blockFloat1; }
+.block:nth-child(24) { --n: 12; left: -35%; animation-name: blockFloat2; }
+.block:nth-child(25) { --n: 13; left: -80%; animation-name: blockFloat3; }
+.block:nth-child(26) { --n: 14; left: -20%; animation-name: blockFloat1; }
+.block:nth-child(27) { --n: 15; left: -60%; animation-name: blockFloat2; }
+.block:nth-child(28) { --n: 1; left: -88%; animation-name: blockFloat3; }
+.block:nth-child(29) { --n: 2; left: -42%; animation-name: blockFloat1; }
+.block:nth-child(30) { --n: 3; left: -73%; animation-name: blockFloat2; }
+.block:nth-child(31) { --n: 4; left: -28%; animation-name: blockFloat3; }
+.block:nth-child(32) { --n: 5; left: -92%; animation-name: blockFloat1; }
+.block:nth-child(33) { --n: 6; left: -38%; animation-name: blockFloat2; }
+.block:nth-child(34) { --n: 7; left: -83%; animation-name: blockFloat3; }
+.block:nth-child(35) { --n: 8; left: -52%; animation-name: blockFloat1; }
+.block:nth-child(36) { --n: 9; left: -67%; animation-name: blockFloat2; }
 
 /* Glowing Lines */
 .lines {

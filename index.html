@@ -18,6 +18,78 @@
             <div class="block"></div>
             <div class="block"></div>
             <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
+            <div class="block"></div>
         </div>
         <div class="lines">
             <div class="line"></div>
@@ -51,18 +123,25 @@
                 </div>
             </div>
             <div class="form-group">
+                <label for="tagLine">Tag Line (optional)</label>
+                <input type="text" 
+                       id="tagLine" 
+                       name="tagLine" 
+                       placeholder="🩳 Pants Edition">
+            </div>
+            <div class="form-group">
                 <label for="releaseNotes">Release Notes</label>
                 <textarea id="releaseNotes" 
                          name="releaseNotes" 
                          rows="10" 
-                         placeholder="### Added ✨
-- wonderful stuff 
+                         placeholder="### ✨ Added
+- wonderful stuff
 - amazing criteria
 
-### Fixed 🐛
+### 🐛 Fixed
 - omg that was crazy
 
-### Updated 📦
+### 📦 Updated
 - yup, had to update the libs again"
                          required></textarea>
                 <div class="error-message" id="notesError"></div>
@@ -78,6 +157,7 @@
                 <div class="error-message" id="imgError"></div>
             </div>
             <div class="button-group">
+                <button type="button" id="obsidianButton">Obsidian</button>
                 <button type="button" id="discordButton">Discord</button>
                 <button type="button" id="githubButton">GitHub</button>
                 <button type="button" id="kofiButton">Ko-Fi</button>
@@ -86,9 +166,18 @@
         </form>
         <div id="output" class="hidden">
             <h2>Generated Release Notes</h2>
+            <div id="outputHeader"></div>
             <div id="outputContent"></div>
+            <div id="obsidianCss"><pre>.release-title {
+    border-radius: 15px;
+    background: #00000070;
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}</pre></div>
             <div class="output-actions">
-                <button id="copyButton">Copy to Clipboard</button>
                 <button id="resetButton" class="reset">Reset</button>
             </div>
         </div>

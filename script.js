@@ -39,15 +39,13 @@ const projects = [
 const form = document.getElementById('releaseForm');
 const projectSelect = document.getElementById('project');
 const versionInput = document.getElementById('versionNumber');
+const tagLineInput = document.getElementById('tagLine');
 const releaseNotesInput = document.getElementById('releaseNotes');
 const imgURLInput = document.getElementById('imgURL');
 const output = document.getElementById('output');
 const outputContent = document.getElementById('outputContent');
-const copyButton = document.getElementById('copyButton');
-const discordButton = document.getElementById('discordButton');
-const githubButton = document.getElementById('githubButton');
-const kofiButton = document.getElementById('kofiButton');
-const xButton = document.getElementById('xButton');
+const outputHeader = document.getElementById('outputHeader');
+const obsidianCss = document.getElementById('obsidianCss');
 const resetButton = document.getElementById('resetButton');
 
 // Populate project select
@@ -60,21 +58,33 @@ projects.forEach(project => {
 
 // Generate Discord release notes template
 function generateDiscordReleaseNotes(project, version, notes, imgUrl) {
-    let template = `# ${project.displayName} [v${version}](<https://github.com/jparkerweb/${project.shortName}/releases/tag/${version}>)\n\n`;
-    template += `## What's New 🎉\n${notes}\n\n`;
-    template += `#### Grab the latest update directly from the Obsidian app! If you have any suggestions or encounter any issues, don't hesitate to reach out. 😁\n\n`;
-    template += `⇢ [github](<https://github.com/jparkerweb/${project.shortName}>)\n`;
+    let template = `# ${project.displayName} [v${version}](<https://github.com/jparkerweb/${project.shortName}/releases/tag/${version}>)`;
+    template += `\n\n`;
+    
+    if (project.tagLine) {
+        template += `## ${project.tagLine}`;
+    } else {
+        template += `## What's New 🎉`;
+    }
+
+    template += `\n${notes}\n\n`;
+    
+    template += `### Grab the latest update directly from the Obsidian app!`;
+    template += `\n_If you have any suggestions or encounter any issues, don't hesitate to reach out._ 😁\n\n`;
+    template += `🐙 [github](<https://github.com/jparkerweb/${project.shortName}>)`;
     
     if (project.npmPackageName) {
-        template += `⇢ [npm](<https://www.npmjs.com/package/${project.npmPackageName}>)\n`;
+        template += `  /  📦 [npm](<https://www.npmjs.com/package/${project.npmPackageName}>)`;
     }
     
     if (project.obsidianPluginName) {
-        template += `⇢ [plugin](<https://obsidian.md/plugins?search=${encodeURIComponent(project.obsidianPluginName)}>)\n`;
+        template += `  /  💎 [plugin](<https://obsidian.md/plugins?search=${encodeURIComponent(project.obsidianPluginName)}>)`;
     }
+
+    template += `\n`;
     
     if (imgUrl.trim()) {
-        template += `\n![pic](${imgUrl})`;
+        template += `\n![🖼️ image](${imgUrl})`;
     }
     
     return template;
@@ -112,9 +122,15 @@ function generateKoFiReleaseNotes(project, notes) {
 }
 
 // Generate X post release notes template
-function generateXReleaseNotes(project, notes) {
+function generateXReleaseNotes(project, version, notes, tagLine) {
     const formattedNotes = formatNotesWithEmojis(notes);
-    let template = `${project.displayName} Release\n\n${formattedNotes}\n\n🐙 https://github.com/jparkerweb/${project.shortName}`;
+    let template = `${project.displayName} Release`;
+    template += `\nv${version}`;
+    if (tagLine) {
+        template += ` - ${tagLine}`;
+    }
+    
+    template += `\n\n${formattedNotes}\n\n🐙 https://github.com/jparkerweb/${project.shortName}`;
     
     if (project.obsidianPluginName) {
         template += `\n💎 https://obsidian.md/plugins?search=${project.obsidianPluginName}`;
@@ -125,6 +141,14 @@ function generateXReleaseNotes(project, notes) {
     }
     
     template += `\n\n${project.hashtags}`;
+    return template;
+}
+
+// Generate Obsidian release notes template
+function generateObsidianReleaseNotes(project, version, notes, tagLine) {
+    let template = `---\nbanner: \n---\n # v${version}${tagLine ? ` - ${tagLine}` : ''} { .release-title }`;
+    template += `\n\n## ${project.displayName}\n\n#### What's New 🎉\n\n${notes}`;
+    
     return template;
 }
 
@@ -140,9 +164,10 @@ function formatNotesWithEmojis(notes) {
         if (!trimmedLine) continue;
 
         if (trimmedLine.startsWith('### ')) {
-            const [title, emoji] = trimmedLine.substring(4).split(' ');
-            currentSection = title.toLowerCase();
+            // Extract emoji and section from "### 🫧 Added" format
+            const [emoji, ...sectionParts] = trimmedLine.substring(4).split(' ');
             currentEmoji = emoji;
+            currentSection = sectionParts.join(' ').toLowerCase();
         } else if (trimmedLine.startsWith('- ')) {
             const bulletText = trimmedLine.substring(2);
             formattedLines.push(`⇢ ${currentEmoji} ${currentSection} ${bulletText}`);
@@ -159,94 +184,180 @@ function generateReleaseNotes(templateType) {
         return;
     }
 
-    const selectedProject = JSON.parse(projectSelect.value);
+    const project = JSON.parse(projectSelect.value);
     const version = versionInput.value;
+    const tagLine = tagLineInput.value;
     const notes = releaseNotesInput.value;
     const imgUrl = imgURLInput.value;
 
-    let content = '';
+    let generatedNotes = '';
+    let generatedHeader = '';
+
+    // Hide CSS snippet by default
+    obsidianCss.style.display = 'none';
+
     switch (templateType) {
         case 'discord':
-            content = generateDiscordReleaseNotes(selectedProject, version, notes, imgUrl);
+            generatedNotes = generateDiscordReleaseNotes(project, version, notes, imgUrl);
+            generatedHeader = `${project.displayName} - v${version}${tagLine ? ` - ${tagLine}` : ''}`;
             break;
         case 'github':
-            content = generateGitHubReleaseNotes(version, notes, imgUrl);
+            generatedNotes = generateGitHubReleaseNotes(version, notes, imgUrl);
+            generatedHeader = `v${version}${tagLine ? ` - ${tagLine}` : ''}`;
             break;
         case 'kofi':
-            content = generateKoFiReleaseNotes(selectedProject, notes);
+            generatedNotes = generateKoFiReleaseNotes(project, notes);
+            generatedHeader = `v${version} - ${tagLine}`;
             break;
         case 'x':
-            content = generateXReleaseNotes(selectedProject, notes);
+            generatedNotes = generateXReleaseNotes(project, version, notes, tagLine);
+            generatedHeader = "";
+            break;
+        case 'obsidian':
+            generatedNotes = generateObsidianReleaseNotes(project, version, notes, tagLine);
+            generatedHeader = "";
+            obsidianCss.style.display = 'block';
             break;
     }
-    
-    outputContent.textContent = content;
+
     output.classList.remove('hidden');
+    const title = document.querySelector('#output h2');
+    title.textContent = `Generated Release Notes for ${templateType.charAt(0).toUpperCase() + templateType.slice(1)}`;
+    outputContent.textContent = generatedNotes;
+    outputHeader.textContent = generatedHeader;
+    if (outputHeader.textContent === "") {
+        outputHeader.classList.add('hidden');
+    } else {
+        outputHeader.classList.remove('hidden');
+    }
     
-    // Scroll to output section
+    // scroll to output section
     output.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
+
+// Event listeners for platform buttons
+document.getElementById('obsidianButton').addEventListener('click', () => {
+    // Validate form
+    if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+    }
+
+    const project = JSON.parse(projectSelect.value);
+    if (!project) return;
+
+    const version = versionInput.value;
+    const tagLine = tagLineInput.value;
+    const notes = releaseNotesInput.value;
+
+    // Hide CSS snippet for non-Obsidian formats
+    obsidianCss.style.display = 'none';
+
+    // Generate Obsidian format
+    const header = `---\nbanner: \n---\n# v${version}${tagLine ? ` - ${tagLine}` : ''} { .border-radius .bg-shaded .padding-20 .flex-row .flex-center }`;
+    outputHeader.textContent = header;
+
+    const content = `## ${project.displayName}\n\n#### What's New 🎉\n\n${notes}`;
+    outputContent.textContent = content;
+
+    // Show CSS snippet for Obsidian format
+    obsidianCss.style.display = 'block';
+
+    // Update title and show output
+    output.classList.remove('hidden');
+    const title = document.querySelector('#output h2');
+    title.textContent = 'Generated Release Notes for Obsidian';
+
+    // Scroll to output
+    output.scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
 
 // Event listeners
 discordButton.addEventListener('click', () => generateReleaseNotes('discord'));
 githubButton.addEventListener('click', () => generateReleaseNotes('github'));
 kofiButton.addEventListener('click', () => generateReleaseNotes('kofi'));
 xButton.addEventListener('click', () => generateReleaseNotes('x'));
+obsidianButton.addEventListener('click', () => generateReleaseNotes('obsidian'));
+resetButton.addEventListener('click', () => {
+    form.reset();
+    output.classList.add('hidden');
+});
 
-// Copy button functionality
+// Copy functionality for output header
+outputHeader.addEventListener('click', async () => {
+    if (outputHeader.textContent.trim() === '') return;
+    
+    const success = await copyToClipboard(outputHeader.textContent);
+    if (success) {
+        showToast('Header copied to clipboard!');
+    }
+});
+
+// Copy functionality for output content
+outputContent.addEventListener('click', async () => {
+    if (outputContent.textContent.trim() === '') return;
+    
+    const success = await copyToClipboard(outputContent.textContent);
+    if (success) {
+        showToast('Release notes copied to clipboard!');
+    }
+});
+
+// Copy functionality for CSS snippet
+obsidianCss.addEventListener('click', async () => {
+    if (obsidianCss.textContent.trim() === '') return;
+    
+    const success = await copyToClipboard(obsidianCss.textContent);
+    if (success) {
+        showToast('CSS class copied to clipboard!');
+    }
+});
+
+// Copy to clipboard helper function
 function copyToClipboard(text) {
-    // Create a temporary textarea element
     const textArea = document.createElement("textarea");
     textArea.value = text;
-    
-    // Make it invisible but ensure it's in the DOM
     textArea.style.position = "fixed";
-    textArea.style.top = "0";
-    textArea.style.left = "0";
-    textArea.style.width = "2em";
-    textArea.style.height = "2em";
-    textArea.style.padding = "0";
-    textArea.style.border = "none";
-    textArea.style.outline = "none";
-    textArea.style.boxShadow = "none";
-    textArea.style.background = "transparent";
-    
+    textArea.style.left = "-999999px";
+    textArea.style.top = "-999999px";
     document.body.appendChild(textArea);
-    
+    textArea.focus();
+    textArea.select();
+
     try {
-        // Select the text
-        textArea.focus();
-        textArea.select();
-        
-        // Try to copy
-        const successful = document.execCommand('copy');
-        
-        // Clean up
-        document.body.removeChild(textArea);
-        
-        return successful;
+        document.execCommand('copy');
+        textArea.remove();
+        return true;
     } catch (err) {
-        // Clean up
-        document.body.removeChild(textArea);
         console.error('execCommand Error:', err);
+        textArea.remove();
         return false;
     }
 }
 
-copyButton.addEventListener('click', () => {
-    const success = copyToClipboard(outputContent.textContent);
-    if (success) {
-        copyButton.textContent = 'Copied!';
-        setTimeout(() => {
-            copyButton.textContent = 'Copy to Clipboard';
-        }, 2000);
-    } else {
-        console.error('Failed to copy');
-        alert('Failed to copy to clipboard');
-    }
-});
+// Function to show toast message
+function showToast(message) {
+    const container = document.createElement('div');
+    container.className = 'toast-container';
+    
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    toast.textContent = message;
+    
+    container.appendChild(toast);
+    document.body.appendChild(container);
 
-// Reset button functionality
-resetButton.addEventListener('click', () => {
-    window.location.reload();
-});
+    // Function to remove toast
+    const removeToast = () => {
+        container.classList.add('fade-out');
+        setTimeout(() => {
+            document.body.removeChild(container);
+        }, 300);
+    };
+
+    // Click anywhere to dismiss
+    container.addEventListener('click', removeToast);
+
+    // Auto dismiss after delay
+    setTimeout(removeToast, 2000);
+}
