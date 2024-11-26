@@ -35,6 +35,8 @@ const projects = [
     }
 ];
 
+const discordServerLink = 'https://discord.gg/sp8AQQhMJ7';
+
 // DOM Elements
 const form = document.getElementById('releaseForm');
 const projectSelect = document.getElementById('project');
@@ -74,12 +76,15 @@ function generateDiscordReleaseNotes(project, version, notes, imgUrl) {
     template += `🐙 [github](<https://github.com/jparkerweb/${project.shortName}>)`;
     
     if (project.npmPackageName) {
-        template += `  /  📦 [npm](<https://www.npmjs.com/package/${project.npmPackageName}>)`;
+        template += ` — 📦 [npm](<https://www.npmjs.com/package/${project.npmPackageName}>)`;
     }
     
     if (project.obsidianPluginName) {
-        template += `  /  💎 [plugin](<https://obsidian.md/plugins?search=${encodeURIComponent(project.obsidianPluginName)}>)`;
+        template += ` — 💎 [plugin](<https://obsidian.md/plugins?search=${encodeURIComponent(project.obsidianPluginName)}>)`;
     }
+
+    template += ` — 💻 [equill labs](https://www.equilllabs.com)`;
+    template += ` — 💬 [Discord server](${discordServerLink})`;
 
     template += `\n`;
     
@@ -102,7 +107,11 @@ function generateGitHubReleaseNotes(version, notes, imgUrl) {
     
     template += `---\n\n`;
     template += `Please consider sending me a tip to support my work 😀\n`;
-    template += `# [🍵 tip me here](https://ko-fi.com/jparkerweb)`;
+    template += `# 🍵 [tip me here](https://ko-fi.com/jparkerweb)`;
+    template += `\n`;
+    template += `⇢ 💻 Visit [eQuill Labs](https://www.quilllabs.com)`;
+    template += `\n`;
+    template += `⇢ 💬 Join the [Discord](${discordServerLink})`;
     
     return template;
 }
@@ -119,6 +128,9 @@ function generateKoFiReleaseNotes(project, notes) {
     if (project.npmPackageName) {
         template += `\n🥡 https://www.npmjs.com/package/${project.npmPackageName}`;
     }
+
+    template += `\n💻 https://www.equilllabs.com`;
+    template += `\n💬 ${discordServerLink}`;
 
     return template;
 }
@@ -141,6 +153,9 @@ function generateXReleaseNotes(project, version, notes, tagLine) {
     if (project.npmPackageName) {
         template += `\n🥡 https://www.npmjs.com/package/${project.npmPackageName}`;
     }
+
+    template += `\n 💻 https://www.equilllabs.com`;
+    template += `\n 💬 ${discordServerLink}`;
     
     template += `\n\n${project.hashtags}`;
     return template;
@@ -148,8 +163,8 @@ function generateXReleaseNotes(project, version, notes, tagLine) {
 
 // Generate Obsidian release notes template
 function generateObsidianReleaseNotes(project, version, notes, tagLine) {
-    let template = `---\nbanner: \n---\n # v${version}${tagLine ? ` - ${tagLine}` : ''} { .release-title }`;
-    template += `\n\n## ${project.displayName}\n\n#### What's New 🎉\n\n${notes}`;
+    let template = `---\nbanner: \n---\n # ${project.displayName} ⋅ v${version}${tagLine ? ` - ${tagLine}` : ''} { .release-title }`;
+    template += `\n\n#### What's New 🎉\n\n${notes}`;
     
     return template;
 }
@@ -201,7 +216,7 @@ function generateReleaseNotes(templateType) {
     switch (templateType) {
         case 'discord':
             generatedNotes = generateDiscordReleaseNotes(project, version, notes, imgUrl);
-            generatedHeader = `${project.displayName} - v${version}${tagLine ? ` - ${tagLine}` : ''}`;
+            generatedHeader = `${project.displayName} ⋅ v${version}${tagLine ? ` - ${tagLine}` : ''}`;
             break;
         case 'github':
             generatedNotes = generateGitHubReleaseNotes(version, notes, imgUrl);
@@ -236,43 +251,6 @@ function generateReleaseNotes(templateType) {
     // scroll to output section
     output.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
-
-// Event listeners for platform buttons
-document.getElementById('obsidianButton').addEventListener('click', () => {
-    // Validate form
-    if (!form.checkValidity()) {
-        form.reportValidity();
-        return;
-    }
-
-    const project = JSON.parse(projectSelect.value);
-    if (!project) return;
-
-    const version = versionInput.value;
-    const tagLine = tagLineInput.value;
-    const notes = releaseNotesInput.value;
-
-    // Hide CSS snippet for non-Obsidian formats
-    obsidianCss.style.display = 'none';
-
-    // Generate Obsidian format
-    const header = `---\nbanner: \n---\n# ${project.displayName} ⋅ v${version}${tagLine ? ` - ${tagLine}` : ''} { .border-radius .bg-shaded .padding-20 .flex-row .flex-center }`;
-    outputHeader.textContent = header;
-
-    const content = `#### What's New 🎉\n\n${notes}`;
-    outputContent.textContent = content;
-
-    // Show CSS snippet for Obsidian format
-    obsidianCss.style.display = 'block';
-
-    // Update title and show output
-    output.classList.remove('hidden');
-    const title = document.querySelector('#output h2');
-    title.textContent = 'Generated Release Notes for Obsidian';
-
-    // Scroll to output
-    output.scrollIntoView({ behavior: 'smooth', block: 'start' });
-});
 
 // Event listeners
 discordButton.addEventListener('click', () => generateReleaseNotes('discord'));
