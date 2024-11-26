@@ -256,10 +256,10 @@ document.getElementById('obsidianButton').addEventListener('click', () => {
     obsidianCss.style.display = 'none';
 
     // Generate Obsidian format
-    const header = `---\nbanner: \n---\n# v${version}${tagLine ? ` - ${tagLine}` : ''} { .border-radius .bg-shaded .padding-20 .flex-row .flex-center }`;
+    const header = `---\nbanner: \n---\n# ${project.displayName} ⋅ v${version}${tagLine ? ` - ${tagLine}` : ''} { .border-radius .bg-shaded .padding-20 .flex-row .flex-center }`;
     outputHeader.textContent = header;
 
-    const content = `## ${project.displayName}\n\n#### What's New 🎉\n\n${notes}`;
+    const content = `#### What's New 🎉\n\n${notes}`;
     outputContent.textContent = content;
 
     // Show CSS snippet for Obsidian format
