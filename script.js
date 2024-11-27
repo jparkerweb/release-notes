@@ -83,12 +83,12 @@ function generateDiscordReleaseNotes(project, version, notes, imgUrl) {
         template += ` — 💎 [plugin](<https://obsidian.md/plugins?search=${encodeURIComponent(project.obsidianPluginName)}>)`;
     }
 
-    template += ` — 💻 [equill labs](https://www.equilllabs.com)`;
+    template += ` — 💻 [eQuill Labs](https://www.equilllabs.com)`;
 
     template += `\n`;
     
     if (imgUrl.trim()) {
-        template += `\n![🖼️ image](${imgUrl})`;
+        template += `\n![pic](${imgUrl})`;
     }
     
     return template;
