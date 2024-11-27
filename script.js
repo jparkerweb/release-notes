@@ -84,7 +84,6 @@ function generateDiscordReleaseNotes(project, version, notes, imgUrl) {
     }
 
     template += ` — 💻 [equill labs](https://www.equilllabs.com)`;
-    template += ` — 💬 [Discord server](${discordServerLink})`;
 
     template += `\n`;
     
@@ -216,7 +215,7 @@ function generateReleaseNotes(templateType) {
     switch (templateType) {
         case 'discord':
             generatedNotes = generateDiscordReleaseNotes(project, version, notes, imgUrl);
-            generatedHeader = `${project.displayName} ⋅ v${version}${tagLine ? ` - ${tagLine}` : ''}`;
+            generatedHeader = "";
             break;
         case 'github':
             generatedNotes = generateGitHubReleaseNotes(version, notes, imgUrl);
@@ -224,7 +223,7 @@ function generateReleaseNotes(templateType) {
             break;
         case 'kofi':
             generatedNotes = generateKoFiReleaseNotes(project, notes);
-            generatedHeader = `v${version} - ${tagLine}`;
+            generatedHeader = `${project.displayName} ⋅ v${version}${tagLine ? ` - ${tagLine}` : ''}`;
             break;
         case 'x':
             generatedNotes = generateXReleaseNotes(project, version, notes, tagLine);
@@ -232,7 +231,7 @@ function generateReleaseNotes(templateType) {
             break;
         case 'obsidian':
             generatedNotes = generateObsidianReleaseNotes(project, version, notes, tagLine);
-            generatedHeader = "";
+            generatedHeader = `v${version}${tagLine ? ` - ${tagLine}` : ''}`;
             obsidianCss.style.display = 'block';
             break;
     }
