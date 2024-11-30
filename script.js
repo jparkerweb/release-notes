@@ -3,13 +3,13 @@ const projects = [
     {
         displayName: '🚩 Pixel Banner',
         shortName: 'pixel-banner',
-        obsidianPluginName: 'Pixel Banner',
+        obsidianPluginName: 'Pixel%20Banner',
         hashtags: '#Obsidian #ObsidianMD #Plugins #Banners',
     },
     {
         displayName: '🦶 Rich Foot',
         shortName: 'rich-foot',
-        obsidianPluginId: 'Rich Foot',
+        obsidianPluginId: 'rich-foot',
         hashtags: '#Obsidian #ObsidianMD #Plugins #Footnotes'
     },
     {
