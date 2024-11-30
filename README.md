@@ -31,6 +31,8 @@ Simple web app for generating formatted release notes with support for multiple 
   - Copy to clipboard functionality
   - Form reset option
 
+![screenshot](img/release-notes.jpg)
+
 ## Usage 💡
 
 1. Select your project from the dropdown
