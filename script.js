@@ -9,7 +9,7 @@ const projects = [
     {
         displayName: '🦶 Rich Foot',
         shortName: 'rich-foot',
-        obsidianPluginId: 'rich-foot',
+        obsidianPluginName: 'rich%20foot',
         hashtags: '#Obsidian #ObsidianMD #Plugins #Footnotes'
     },
     {
@@ -81,8 +81,6 @@ function generateDiscordReleaseNotes(project, version, notes, imgUrl) {
     
     if (project.obsidianPluginName) {
         template += ` — 💎 [plugin](<https://obsidian.md/plugins?search=${encodeURIComponent(project.obsidianPluginName)}>)`;
-    } else if (project.obsidianPluginId) {
-        template += ` — 💎 [plugin](<https://obsidian.md/plugins?id=${encodeURIComponent(project.obsidianPluginId)}>)`;
     }
 
     template += ` — 💻 [eQuill Labs](https://www.equilllabs.com)`;
@@ -124,8 +122,6 @@ function generateKoFiReleaseNotes(project, notes) {
     
     if (project.obsidianPluginName) {
         template += `\n💎 https://obsidian.md/plugins?search=${project.obsidianPluginName}`;
-    } else if (project.obsidianPluginId) {
-        template += `\n💎 https://obsidian.md/plugins?id=${project.obsidianPluginId}`;
     }
     
     
@@ -152,8 +148,6 @@ function generateXReleaseNotes(project, version, notes, tagLine) {
     
     if (project.obsidianPluginName) {
         template += `\n💎 https://obsidian.md/plugins?search=${project.obsidianPluginName}`;
-    } else if (project.obsidianPluginId) {
-        template += `\n💎 https://obsidian.md/plugins?id=${project.obsidianPluginId}`;
     }
     
     if (project.npmPackageName) {
