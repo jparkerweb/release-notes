@@ -32,6 +32,11 @@ const projects = [
         displayName: '🌐 Web-Augmented Generation',
         shortName: 'web-augmented-generation',
         hashtags: '#LLM #AITools #NodeJS #SearXNG #WebScraping'
+    },
+    {
+        displayName: '🏷️ Fast Topic Analysis',
+        shortName: 'fast-topic-analysis',
+        hashtags: '#LLM #AITools #NodeJS #TopicAnalysis'
     }
 ];
 
