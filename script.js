@@ -76,8 +76,12 @@ function generateDiscordReleaseNotes(project, version, notes, imgUrl) {
 
     template += `\n${notes}\n\n`;
     
-    template += `### Grab the latest update directly from the Obsidian app!`;
+    if (project.obsidianPluginName) {
+        template += `### Grab the latest update directly from the Obsidian app!`;
+    }
+
     template += `\n_If you have any suggestions or encounter any issues, don't hesitate to reach out._ 😁\n\n`;
+
     template += `🐙 [github](<https://github.com/jparkerweb/${project.shortName}>)`;
     
     if (project.npmPackageName) {
