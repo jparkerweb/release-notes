@@ -96,8 +96,12 @@ function generateDiscordReleaseNotes(project, version, notes, imgUrl) {
 
     template += `\n`;
     
-    if (imgUrl.trim()) {
-        template += `\n![pic](${imgUrl})`;
+    // if (imgUrl.trim()) {
+    //     template += `\n![pic](${imgUrl})`;
+    // }
+
+    if (youTubeVideoId.trim()) {
+        template += `\nhttps://www.youtube.com/watch?v=${youTubeVideoId}`;
     }
     
     return template;
@@ -111,6 +115,10 @@ function generateGitHubReleaseNotes(version, notes, imgUrl) {
     
     if (imgUrl.trim()) {
         template += `![v${version}](${imgUrl})\n\n`;
+    }
+
+    if (youTubeVideoId.trim()) {
+        template += `[![YouTube Video](${youTubeVideoId})](https://www.youtube.com/watch?v=${youTubeVideoId})\n\n`;
     }
     
     template += `---\n\n`;
