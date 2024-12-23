@@ -49,6 +49,7 @@ const versionInput = document.getElementById('versionNumber');
 const tagLineInput = document.getElementById('tagLine');
 const releaseNotesInput = document.getElementById('releaseNotes');
 const imgURLInput = document.getElementById('imgURL');
+const youTubeVideoIdInput = document.getElementById('youTubeVideoId');
 const output = document.getElementById('output');
 const outputContent = document.getElementById('outputContent');
 const outputHeader = document.getElementById('outputHeader');
@@ -64,7 +65,7 @@ projects.forEach(project => {
 });
 
 // Generate Discord release notes template
-function generateDiscordReleaseNotes(project, version, notes, imgUrl) {
+function generateDiscordReleaseNotes(project, version, notes, imgUrl, youTubeVideoId) {
     let template = `# ${project.displayName} [v${version}](<https://github.com/jparkerweb/${project.shortName}/releases/tag/${version}>)`;
     template += `\n\n`;
     
@@ -108,7 +109,7 @@ function generateDiscordReleaseNotes(project, version, notes, imgUrl) {
 }
 
 // Generate GitHub release notes template
-function generateGitHubReleaseNotes(version, notes, imgUrl) {
+function generateGitHubReleaseNotes(version, notes, imgUrl, youTubeVideoId) {
     let template = `## What's New 🎉`;
     template += `\n\n### v${version}`;
     template += `\n${notes}\n\n`;
@@ -223,6 +224,7 @@ function generateReleaseNotes(templateType) {
     const tagLine = tagLineInput.value;
     const notes = releaseNotesInput.value;
     const imgUrl = imgURLInput.value;
+    const youTubeVideoId = youTubeVideoIdInput.value;
 
     let generatedNotes = '';
     let generatedHeader = '';
@@ -232,11 +234,11 @@ function generateReleaseNotes(templateType) {
 
     switch (templateType) {
         case 'discord':
-            generatedNotes = generateDiscordReleaseNotes(project, version, notes, imgUrl);
+            generatedNotes = generateDiscordReleaseNotes(project, version, notes, imgUrl, youTubeVideoId);
             generatedHeader = "";
             break;
         case 'github':
-            generatedNotes = generateGitHubReleaseNotes(version, notes, imgUrl);
+            generatedNotes = generateGitHubReleaseNotes(version, notes, imgUrl, youTubeVideoId);
             generatedHeader = `v${version}${tagLine ? ` - ${tagLine}` : ''}`;
             break;
         case 'kofi':
