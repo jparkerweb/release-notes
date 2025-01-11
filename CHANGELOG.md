@@ -2,6 +2,11 @@
 
 All notable changes to the Release Notes Generator will be documented in this file.
 
+## [1.1.2] - 2025-01-11
+
+### Added ✨
+- Added `Sentence Parse` project
+
 ## [1.1.1] - 2024-11-15
 
 ### Added ✨

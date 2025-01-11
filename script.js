@@ -37,6 +37,12 @@ const projects = [
         displayName: '🏷️ Fast Topic Analysis',
         shortName: 'fast-topic-analysis',
         hashtags: '#LLM #AITools #NodeJS #TopicAnalysis'
+    },
+    {
+        displayName: '📄 Sentence Parse',
+        shortName: 'sentence-parse',
+        hashtags: '#sentence #parse #split #segment',
+        npmPackageName: 'sentence-parse'
     }
 ];
 
