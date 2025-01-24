@@ -132,7 +132,7 @@ function generateGitHubReleaseNotes(version, notes, imgUrl, youTubeVideoId) {
     template += `Please consider sending me a tip to support my work 😀\n`;
     template += `# 🍵 [tip me here](https://ko-fi.com/jparkerweb)`;
     template += `\n`;
-    template += `⇢ 💻 Visit [eQuill Labs](https://www.quilllabs.com)`;
+    template += `⇢ 💻 Visit [eQuill Labs](https://www.equilllabs.com)`;
     template += `\n`;
     template += `⇢ 💬 Join the [Discord](${discordServerLink})`;
     
