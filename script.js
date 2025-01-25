@@ -43,6 +43,12 @@ const projects = [
         shortName: 'sentence-parse',
         hashtags: '#sentence #parse #split #segment',
         npmPackageName: 'sentence-parse'
+    },
+    {
+        displayName: '👽 Extract Topics',
+        shortName: 'extract-topics',
+        hashtags: '#LLM #AITools #NodeJS #TopicExtraction',
+        npmPackageName: 'extract-topics'
     }
 ];
 

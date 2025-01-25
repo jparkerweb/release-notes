@@ -2,19 +2,20 @@
 
 All notable changes to the Release Notes Generator will be documented in this file.
 
-## [1.1.2] - 2025-01-11
+## [1.1.3] - 2025-01-24
+### Added ✨
+- Added `Extract Topics` project
 
+## [1.1.2] - 2025-01-11
 ### Added ✨
 - Added `Sentence Parse` project
 
 ## [1.1.1] - 2024-11-15
-
 ### Added ✨
 - Added support for Obsidian release notes (inluding CSS snippet)
 - Added support for X post release notes
 
 ## [1.1.0] - 2024-11-15
-
 ### Fixed 🐛
 - Simplified copy to clipboard logic
   - was having issues when the page was being used from an iframe
@@ -24,7 +25,6 @@ All notable changes to the Release Notes Generator will be documented in this fi
 - Form layout simplified
 
 ## [1.0.0] - 2024-11-14
-
 ### Added ✨
 - Initial release of the Release Notes Generator
 - Multiple output format support:
