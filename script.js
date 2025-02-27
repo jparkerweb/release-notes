@@ -15,7 +15,6 @@ const projects = [
     {
         displayName: '🍱 Semantic Chunking',
         shortName: 'semantic-chunking',
-        npmPackageName: 'semantic-chunking',
         demo: 'https://chunking.dyndns.org',
         hashtags: '#LLM #RAG #AI #AITools #Chunking',
         npmPackageName: 'semantic-chunking'
@@ -23,7 +22,6 @@ const projects = [
     {
         displayName: '🕵️ Chunk Match',
         shortName: 'chunk-match',
-        npmPackageName: 'chunk-match',
         demo: 'https://chunk-match.dyndns.org',
         hashtags: '#LLM #RAG #AI #AITools #Chunking',
         npmPackageName: 'chunk-match'
@@ -49,7 +47,18 @@ const projects = [
         shortName: 'extract-topics',
         hashtags: '#LLM #AITools #NodeJS #TopicExtraction',
         npmPackageName: 'extract-topics'
-    }
+    },
+    {
+        displayName: '🪨 Bedrock Wrapper',
+        shortName: 'bedrock-wrapper',
+        hashtags: '#LLM #AWS #AI #AITools #Bedrock',
+        npmPackageName: 'bedrock-wrapper'
+    },
+    {
+        displayName: '🔀 Bedrock Proxy Endpoint',
+        shortName: 'bedrock-proxy-endpoint',
+        hashtags: '#LLM #AWS #AI #AITools #Bedrock'
+    },
 ];
 
 const discordServerLink = 'https://discord.gg/sp8AQQhMJ7';

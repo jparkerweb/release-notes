@@ -2,6 +2,11 @@
 
 All notable changes to the Release Notes Generator will be documented in this file.
 
+## [1.1.4] - 2025-02-27
+### Added ✨
+- Added `Bedrock Wrapper` project
+- Added `Bedrock Proxy Endpoint` project
+
 ## [1.1.3] - 2025-01-24
 ### Added ✨
 - Added `Extract Topics` project
