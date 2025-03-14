@@ -59,6 +59,13 @@ const projects = [
         shortName: 'bedrock-proxy-endpoint',
         hashtags: '#LLM #AWS #AI #AITools #Bedrock'
     },
+    {
+        displayName: '💦 K-Batch',
+        shortName: 'k-batch',
+        demo: 'https://k-batch.dyndns.org',
+        hashtags: '#Sentence #Batch #K-Means #NLP #ML',
+        npmPackageName: 'k-batch'
+    },
 ];
 
 const discordServerLink = 'https://discord.gg/sp8AQQhMJ7';
