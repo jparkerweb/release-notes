@@ -68,9 +68,9 @@ const projects = [
     },
     {
         displayName: '🐇 MCP SQLite Server',
-        shortName: 'mcp-sqlite-server',
+        shortName: 'mcp-sqlite',
         hashtags: '#MCP #SQLite #NodeJS #Cursor #AITools',
-        npmPackageName: 'mcp-sqlite-server'
+        npmPackageName: 'mcp-sqlite'
     },
 ];
 
