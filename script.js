@@ -66,6 +66,12 @@ const projects = [
         hashtags: '#Sentence #Batch #K-Means #NLP #ML',
         npmPackageName: 'k-batch'
     },
+    {
+        displayName: '🐇 MCP SQLite Server',
+        shortName: 'mcp-sqlite-server',
+        hashtags: '#MCP #SQLite #NodeJS #Cursor #AITools',
+        npmPackageName: 'mcp-sqlite-server'
+    },
 ];
 
 const discordServerLink = 'https://discord.gg/sp8AQQhMJ7';
